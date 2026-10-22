@@ -69,6 +69,7 @@
   }
   .hero h1 span { color: var(--gold); }
   .hero .version { color: var(--muted); font-size: .85rem; margin-bottom: 16px; }
+  .hero .hero-note { color: var(--muted); font-size: .78rem; margin-top: 14px; max-width: 520px; margin-left: auto; margin-right: auto; }
   .hero p { color: #aab0c8; font-size: 1.05rem; max-width: 500px; margin: 0 auto 36px; }
 
   .btn-download {
@@ -272,33 +273,62 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <h1>BattleOnline <span>Helper</span></h1>
-  <div class="version">Beta Version</div>
+  <div class="version">Beta Version · v2.4.23</div>
   <p data-i18n="hero_desc"></p>
-  <a href="https://github.com/fawizja/battleonline-helper/releases/download/1.0.3/BattleOnline.Helper.apk"
+  <a href="https://github.com/fawizja/battleonline-helper/releases/latest/download/BattleOnline.Helper.apk"
      class="btn-download" download data-i18n="btn_download"></a>
+  <p class="hero-note" data-i18n="hero_note"></p>
 </section>
 
 <!-- ── FEATURES ── -->
 <div class="features">
   <div class="feat-card">
-    <div class="feat-icon">🎣</div>
-    <div><strong>Fishing</strong><span>Caelbourne auto-fishing</span></div>
+    <div class="feat-icon">💀</div>
+    <div><strong data-i18n="f_pvp_t"></strong><span data-i18n="f_pvp_d"></span></div>
   </div>
   <div class="feat-card">
-    <div class="feat-icon">🌀</div>
-    <div><strong>Rift Scrolling</strong><span>Chaos Rift automation</span></div>
+    <div class="feat-icon">🏹</div>
+    <div><strong data-i18n="f_war_t"></strong><span data-i18n="f_war_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">👹</div>
+    <div><strong data-i18n="f_demon_t"></strong><span data-i18n="f_demon_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🎒</div>
+    <div><strong data-i18n="f_refill_t"></strong><span data-i18n="f_refill_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">⏰</div>
+    <div><strong data-i18n="f_takeover_t"></strong><span data-i18n="f_takeover_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">❤️</div>
+    <div><strong data-i18n="f_heal_t"></strong><span data-i18n="f_heal_d"></span></div>
   </div>
   <div class="feat-card">
     <div class="feat-icon">⚡</div>
-    <div><strong>EXP Normal & Fast</strong><span>Auto attack & hunt</span></div>
+    <div><strong data-i18n="f_exp_t"></strong><span data-i18n="f_exp_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🎣</div>
+    <div><strong data-i18n="f_fish_t"></strong><span data-i18n="f_fish_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🌀</div>
+    <div><strong data-i18n="f_rift_t"></strong><span data-i18n="f_rift_d"></span></div>
   </div>
   <div class="feat-card">
     <div class="feat-icon">🔮</div>
-    <div><strong>Ascension Sigil</strong><span>Auto sigil use</span></div>
+    <div><strong data-i18n="f_sigil_t"></strong><span data-i18n="f_sigil_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">💬</div>
+    <div><strong data-i18n="f_chat_t"></strong><span data-i18n="f_chat_d"></span></div>
   </div>
   <div class="feat-card">
     <div class="feat-icon">🔄</div>
-    <div><strong>Auto-Update</strong><span>Always up to date</span></div>
+    <div><strong data-i18n="f_update_t"></strong><span data-i18n="f_update_d"></span></div>
   </div>
 </div>
 
@@ -364,14 +394,16 @@
 <!-- ── CHANGELOG ── -->
 <section class="changelog-section">
   <h2 class="section-title" data-i18n="changelog_title"></h2>
-  <div class="cl-version">v1.5.9</div>
+  <div class="cl-version">v2.4.23</div>
   <div class="cl-grid">
-    <div class="cl-item"><div class="cl-icon">🌀</div><div><strong data-i18n="cl_rift_title"></strong><p data-i18n="cl_rift_desc"></p></div></div>
-    <div class="cl-item"><div class="cl-icon">🎯</div><div><strong data-i18n="cl_calib_title"></strong><p data-i18n="cl_calib_desc"></p></div></div>
-    <div class="cl-item"><div class="cl-icon">🔄</div><div><strong data-i18n="cl_update_title"></strong><p data-i18n="cl_update_desc"></p></div></div>
-    <div class="cl-item"><div class="cl-icon">🔮</div><div><strong data-i18n="cl_sigil_title"></strong><p data-i18n="cl_sigil_desc"></p></div></div>
-    <div class="cl-item"><div class="cl-icon">⚔️</div><div><strong data-i18n="cl_pvp_title"></strong><p data-i18n="cl_pvp_desc"></p></div></div>
-    <div class="cl-item"><div class="cl-icon">⚡</div><div><strong data-i18n="cl_overlay_title"></strong><p data-i18n="cl_overlay_desc"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">⚔️</div><div><strong data-i18n="cl1_t"></strong><p data-i18n="cl1_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">👹</div><div><strong data-i18n="cl2_t"></strong><p data-i18n="cl2_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🎒</div><div><strong data-i18n="cl3_t"></strong><p data-i18n="cl3_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">⏰</div><div><strong data-i18n="cl4_t"></strong><p data-i18n="cl4_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🔮</div><div><strong data-i18n="cl5_t"></strong><p data-i18n="cl5_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🔋</div><div><strong data-i18n="cl6_t"></strong><p data-i18n="cl6_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🛡️</div><div><strong data-i18n="cl7_t"></strong><p data-i18n="cl7_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">📱</div><div><strong data-i18n="cl8_t"></strong><p data-i18n="cl8_d"></p></div></div>
   </div>
 </section>
 
@@ -395,8 +427,50 @@
 <script>
 const T = {
   en: {
-    hero_desc: "Automatic fishing & combat bot for BattleOnline. Works on Android devices.",
-    btn_download: "⬇  Download — Beta Version",
+    hero_desc: "Automatic combat, hunting and fishing bot for BattleOnline: PvP, WAR, monster hunting with auto-refill, fishing, Sigil and more. Works on Android devices.",
+    hero_note: "Updating from an older version and Android says “App not installed”? Uninstall the old version once, then install the new one.",
+    btn_download: "⬇  Download latest version",
+    f_pvp_t: "PvP",
+    f_pvp_d: "Targets enemy players automatically",
+    f_war_t: "WAR",
+    f_war_d: "Targets war enemies (red bar)",
+    f_demon_t: "Demon (PvM)",
+    f_demon_d: "Auto-selects and attacks monsters",
+    f_refill_t: "Refill",
+    f_refill_d: "Sells loot in town and returns to hunt",
+    f_takeover_t: "Takeover (Enter War)",
+    f_takeover_d: "ENTER WAR at a set time, to the millisecond",
+    f_heal_t: "HP/MP Healing",
+    f_heal_d: "Heals and restores mana automatically",
+    f_exp_t: "EXP Normal & Fast",
+    f_exp_d: "Auto attack & hunt",
+    f_fish_t: "Fishing",
+    f_fish_d: "Auto-fishing with selling",
+    f_rift_t: "Rift Scrolling",
+    f_rift_d: "Chaos Rift automation",
+    f_sigil_t: "Ascension Sigil",
+    f_sigil_d: "Auto sigil use",
+    f_chat_t: "Auto Chat",
+    f_chat_d: "Regional / Global messages",
+    f_update_t: "Auto-Update",
+    f_update_d: "Always up to date",
+    changelog_title: "What's new in v2.4.23",
+    cl1_t: "PvP & WAR",
+    cl1_d: "Fast target selection with priority over monsters. Players who can't be attacked are skipped, so hunting continues.",
+    cl2_t: "Demon (PvM)",
+    cl2_d: "Selects and attacks monsters, keeps the target even when loot or text covers its frame, never targets players.",
+    cl3_t: "Refill",
+    cl3_d: "Goes to town, sells at Baltim by item names (keeps Dust, Scrap, Sigils, Marks and gems) and returns to the hunt. Works with Demon enabled.",
+    cl4_t: "Takeover (Enter War)",
+    cl4_d: "Clicks ENTER WAR at the set time. 5 minutes later the bot turns off and locks the phone.",
+    cl5_t: "Faster Sigil",
+    cl5_d: "Quicker clicking through bag, Sigil, Use and Confirm.",
+    cl6_t: "Low battery & CPU use",
+    cl6_d: "One shared screen scan for PvP, WAR and PvM. Auto-tunes to your phone's power (about 2–3% CPU).",
+    cl7_t: "Stability",
+    cl7_d: "Pause and Stop always work. Locking the phone stops the bot and screen sharing. Safer screen-capture handling.",
+    cl8_t: "Multi-Device Support",
+    cl8_d: "Detects phone brand (Xiaomi, Samsung, OPPO, Huawei, Nubia...) and screen resolution, and adapts automatically.",
     pricing_title: "License",
     pricing_sub: "One-time payment. Activates automatically in the app.",
     days10: "10 days", days30: "30 days",
@@ -413,20 +487,55 @@ const T = {
     sc_main: "Main menu", sc_permissions: "Permissions",
     sc_fishing: "Fishing", sc_rift: "Rift Scrolling",
     sc_exp_normal: "EXP Normal", sc_exp_fast: "Fast Hunt",
-    changelog_title: "What's new in v1.5.9",
-    cl_rift_title: "🌀 Rift Scrolling", cl_rift_desc: "Auto-swipes Chaos Rift list at max speed. Adjustable speed & calibration.",
-    cl_calib_title: "🎯 Point Calibration", cl_calib_desc: "Per-device calibration system. Works on any Android phone.",
-    cl_update_title: "🔄 Auto-Update", cl_update_desc: "Checks for updates on launch. Downloads & installs automatically via GitHub.",
-    cl_sigil_title: "🔮 Ascension Sigil Use", cl_sigil_desc: "Full automation: open bag → use Sigil → move to boss → cast all spells → repeat.",
-    cl_pvp_title: "📱 Multi-Device Support", cl_pvp_desc: "Auto-detects phone brand (Xiaomi, Samsung, OPPO, Huawei, Nubia...) and applies optimal settings.",
-    cl_overlay_title: "🔋 Battery Optimization", cl_overlay_desc: "Screen capture pauses when bot is idle. Screen lock auto-pauses all bots. Kill switch closes app completely.",
     feat_calib: "Calibration", feat_calib_sub: "Per-device point setup",
     modal_title: "🔑 License Activation", modal_label: "Device code from the app:",
     modal_cancel: "Cancel", modal_pay: "Go to payment →", modal_alert: "Please enter a valid device code.",
   },
   pl: {
-    hero_desc: "Automatyczny bot do łowienia i walki w BattleOnline. Działa na urządzeniach Android.",
-    btn_download: "⬇  Pobierz — Beta Version",
+    hero_desc: "Automatyczny bot do walki, polowania i łowienia w BattleOnline: PvP, WAR, polowanie na potwory z automatycznym Refillem, łowienie, Sigil i więcej. Działa na urządzeniach Android.",
+    hero_note: "Aktualizujesz ze starszej wersji, a Android pokazuje „Aplikacja nie została zainstalowana”? Odinstaluj raz starą wersję i zainstaluj nową.",
+    btn_download: "⬇  Pobierz najnowszą wersję",
+    f_pvp_t: "PvP",
+    f_pvp_d: "Automatycznie zaznacza wrogich graczy",
+    f_war_t: "WAR",
+    f_war_d: "Zaznacza wrogów wojny (czerwony pasek)",
+    f_demon_t: "Diabełek (PvM)",
+    f_demon_d: "Sam zaznacza i bije potwory",
+    f_refill_t: "Refill",
+    f_refill_d: "Sprzedaje łup w mieście i wraca na hunt",
+    f_takeover_t: "Przejmowanie (Enter War)",
+    f_takeover_d: "ENTER WAR o ustawionej godzinie, co do milisekundy",
+    f_heal_t: "Leczenie HP/MP",
+    f_heal_d: "Automatycznie leczy i uzupełnia manę",
+    f_exp_t: "EXP Normal & Fast",
+    f_exp_d: "Automatyczny atak i polowanie",
+    f_fish_t: "Łowienie",
+    f_fish_d: "Automatyczne łowienie ze sprzedażą",
+    f_rift_t: "Rift Scrolling",
+    f_rift_d: "Automatyzacja Chaos Rift",
+    f_sigil_t: "Ascension Sigil",
+    f_sigil_d: "Automatyczne użycie Sigila",
+    f_chat_t: "Auto Chat",
+    f_chat_d: "Wiadomości na Regional / Global",
+    f_update_t: "Auto-update",
+    f_update_d: "Zawsze aktualna wersja",
+    changelog_title: "Co nowego w v2.4.23",
+    cl1_t: "PvP i WAR",
+    cl1_d: "Szybkie zaznaczanie celu z pierwszeństwem przed potworami. Gracze, których nie da się zaatakować, są pomijani — polowanie trwa dalej.",
+    cl2_t: "Diabełek (PvM)",
+    cl2_d: "Zaznacza i bije potwory, trzyma cel nawet gdy ramkę zasłaniają łupy i napisy, nigdy nie zaznacza graczy.",
+    cl3_t: "Refill",
+    cl3_d: "Idzie do miasta, sprzedaje u Baltima po nazwach przedmiotów (zostawia Dusty, Scrap, Sigile, Marki i kamienie) i wraca na hunt. Działa z włączonym Diabełkiem.",
+    cl4_t: "Przejmowanie (Enter War)",
+    cl4_d: "Klika ENTER WAR o ustawionej godzinie. Po 5 minutach bot sam się wyłącza i blokuje telefon.",
+    cl5_t: "Szybszy Sigil",
+    cl5_d: "Szybsze klikanie: torba, Sigil, Use i Confirm.",
+    cl6_t: "Mniejsze zużycie baterii i CPU",
+    cl6_d: "Jedno wspólne skanowanie ekranu dla PvP, WAR i PvM. Samo dostraja się do mocy telefonu (ok. 2–3% CPU).",
+    cl7_t: "Stabilność",
+    cl7_d: "Pauza i Stop działają zawsze. Blokada telefonu wyłącza bota i udostępnianie ekranu. Bezpieczniejsze przechwytywanie ekranu.",
+    cl8_t: "Obsługa wielu marek",
+    cl8_d: "Wykrywa markę telefonu (Xiaomi, Samsung, OPPO, Huawei, Nubia...) i rozdzielczość ekranu, i sam się dopasowuje.",
     pricing_title: "Licencja",
     pricing_sub: "Jednorazowa płatność. Aktywacja automatycznie w aplikacji.",
     days10: "10 dni", days30: "30 dni",
@@ -443,20 +552,55 @@ const T = {
     sc_main: "Menu główne", sc_permissions: "Uprawnienia",
     sc_fishing: "Łowienie", sc_rift: "Rift Scrolling",
     sc_exp_normal: "EXP Normal", sc_exp_fast: "Fast Hunt",
-    changelog_title: "Co nowego w v1.5.9",
-    cl_rift_title: "🌀 Rift Scrolling", cl_rift_desc: "Automatyczne przewijanie listy Chaos Rift. Regulowana prędkość i kalibracja punktów.",
-    cl_calib_title: "🎯 Kalibracja punktów", cl_calib_desc: "System kalibracji per urządzenie. Działa na każdym telefonie Android.",
-    cl_update_title: "🔄 Auto-update", cl_update_desc: "Sprawdza aktualizacje przy starcie. Pobiera i instaluje automatycznie przez GitHub.",
-    cl_sigil_title: "🔮 Ascension Sigil Use", cl_sigil_desc: "Pełna automatyzacja: otwórz torbę → użyj Sigila → idź do bossa → czary → od nowa.",
-    cl_pvp_title: "📱 Obsługa wielu marek", cl_pvp_desc: "Automatyczne wykrywanie marki telefonu (Xiaomi, Samsung, OPPO, Huawei, Nubia...) i optymalne ustawienia.",
-    cl_overlay_title: "🔋 Optymalizacja baterii", cl_overlay_desc: "Przechwytywanie ekranu pauzowane gdy bot nieaktywny. Blokada ekranu pauzuje boty. Przycisk zamknij zabija aplikację.",
     feat_calib: "Kalibracja", feat_calib_sub: "Ustawienie punktów per urządzenie",
     modal_title: "🔑 Aktywacja licencji", modal_label: "Kod urządzenia z aplikacji:",
     modal_cancel: "Anuluj", modal_pay: "Przejdź do płatności →", modal_alert: "Wpisz prawidłowy kod urządzenia.",
   },
   br: {
-    hero_desc: "Bot automático de pesca e combate para BattleOnline. Funciona em dispositivos Android.",
-    btn_download: "⬇  Baixar — Beta Version",
+    hero_desc: "Bot automático de combate, caça e pesca para BattleOnline: PvP, WAR, caça de monstros com Refill automático, pesca, Sigil e mais. Funciona em dispositivos Android.",
+    hero_note: "Atualizando de uma versão antiga e o Android mostra “App não instalado”? Desinstale a versão antiga uma vez e instale a nova.",
+    btn_download: "⬇  Baixar a versão mais recente",
+    f_pvp_t: "PvP",
+    f_pvp_d: "Seleciona jogadores inimigos automaticamente",
+    f_war_t: "WAR",
+    f_war_d: "Seleciona inimigos de guerra (barra vermelha)",
+    f_demon_t: "Demônio (PvM)",
+    f_demon_d: "Seleciona e ataca monstros sozinho",
+    f_refill_t: "Refill",
+    f_refill_d: "Vende o loot na cidade e volta à caça",
+    f_takeover_t: "Tomada (Enter War)",
+    f_takeover_d: "ENTER WAR no horário definido, ao milissegundo",
+    f_heal_t: "Cura HP/MP",
+    f_heal_d: "Cura e recupera mana automaticamente",
+    f_exp_t: "EXP Normal & Fast",
+    f_exp_d: "Ataque e caça automáticos",
+    f_fish_t: "Pesca",
+    f_fish_d: "Pesca automática com venda",
+    f_rift_t: "Rift Scrolling",
+    f_rift_d: "Automação do Chaos Rift",
+    f_sigil_t: "Ascension Sigil",
+    f_sigil_d: "Uso automático do Sigil",
+    f_chat_t: "Auto Chat",
+    f_chat_d: "Mensagens Regional / Global",
+    f_update_t: "Atualização automática",
+    f_update_d: "Sempre atualizado",
+    changelog_title: "O que há de novo na v2.4.23",
+    cl1_t: "PvP e WAR",
+    cl1_d: "Seleção rápida de alvo com prioridade sobre monstros. Jogadores que não podem ser atacados são ignorados e a caça continua.",
+    cl2_t: "Demônio (PvM)",
+    cl2_d: "Seleciona e ataca monstros, mantém o alvo mesmo quando loot ou textos cobrem a moldura, nunca seleciona jogadores.",
+    cl3_t: "Refill",
+    cl3_d: "Vai à cidade, vende no Baltim pelo nome dos itens (mantém Dust, Scrap, Sigils, Marks e gemas) e volta à caça. Funciona com o Demônio ligado.",
+    cl4_t: "Tomada (Enter War)",
+    cl4_d: "Clica em ENTER WAR no horário definido. 5 minutos depois o bot desliga e bloqueia o celular.",
+    cl5_t: "Sigil mais rápido",
+    cl5_d: "Cliques mais rápidos: bolsa, Sigil, Use e Confirm.",
+    cl6_t: "Menos bateria e CPU",
+    cl6_d: "Uma única varredura de tela para PvP, WAR e PvM. Ajusta-se sozinho à potência do celular (cerca de 2–3% de CPU).",
+    cl7_t: "Estabilidade",
+    cl7_d: "Pausar e Parar sempre funcionam. Bloquear o celular desliga o bot e o compartilhamento de tela. Captura de tela mais segura.",
+    cl8_t: "Suporte multi-dispositivo",
+    cl8_d: "Detecta a marca do celular (Xiaomi, Samsung, OPPO, Huawei, Nubia...) e a resolução da tela, e se adapta sozinho.",
     pricing_title: "Licença",
     pricing_sub: "Pagamento único. Ativa automaticamente no app.",
     days10: "10 dias", days30: "30 dias",
@@ -473,13 +617,6 @@ const T = {
     sc_main: "Menu principal", sc_permissions: "Permissões",
     sc_fishing: "Pesca", sc_rift: "Rift Scrolling",
     sc_exp_normal: "EXP Normal", sc_exp_fast: "Fast Hunt",
-    changelog_title: "O que há de novo na v1.5.9",
-    cl_rift_title: "🌀 Rift Scrolling", cl_rift_desc: "Deslize automático da lista do Chaos Rift. Velocidade e calibração ajustáveis.",
-    cl_calib_title: "🎯 Calibração de pontos", cl_calib_desc: "Sistema de calibração por dispositivo. Funciona em qualquer Android.",
-    cl_update_title: "🔄 Atualização automática", cl_update_desc: "Verifica atualizações ao iniciar. Baixa e instala automaticamente via GitHub.",
-    cl_sigil_title: "🔮 Ascension Sigil Use", cl_sigil_desc: "Automação completa: abrir bolsa → usar Sigil → ir ao chefe → lançar feitiços → repetir.",
-    cl_pvp_title: "📱 Suporte multi-dispositivo", cl_pvp_desc: "Detecta automaticamente a marca do celular (Xiaomi, Samsung, OPPO, Huawei, Nubia...) e aplica configurações otimizadas.",
-    cl_overlay_title: "🔋 Otimização de bateria", cl_overlay_desc: "Captura de tela pausada quando bot ocioso. Bloqueio de tela pausa todos os bots. Botão fechar encerra o app completamente.",
     feat_calib: "Calibração", feat_calib_sub: "Configuração de pontos por dispositivo",
     modal_title: "🔑 Ativação de licença", modal_label: "Código do dispositivo do app:",
     modal_cancel: "Cancelar", modal_pay: "Ir para pagamento →", modal_alert: "Insira um código de dispositivo válido.",
