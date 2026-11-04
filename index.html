@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BattleOnline Helper</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #080c14;
+    --surface:  #0f1320;
+    --border:   #1e2540;
+    --gold:     #f5c446;
+    --gold2:    #e0a800;
+    --green:    #1a6e2e;
+    --green2:   #27a245;
+    --text:     #e8eaf0;
+    --muted:    #7a8099;
+    --radius:   14px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,12,20,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 24px; gap: 12px;
+  }
+  .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--gold); letter-spacing: -.02em; }
+  .lang-bar { display: flex; gap: 6px; }
+  .lang-btn {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 8px; padding: 5px 10px; font-size: .8rem; cursor: pointer;
+    transition: all .2s;
+  }
+  .lang-btn.active, .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, #1a2a0a22, transparent);
+  }
+  .hero-badge {
+    display: inline-block; background: var(--border);
+    border: 1px solid var(--gold);
+    color: var(--gold); font-size: .75rem; font-weight: 600;
+    padding: 4px 14px; border-radius: 99px; margin-bottom: 20px;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 900; color: #fff;
+    letter-spacing: -.04em; margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero .version { color: var(--muted); font-size: .85rem; margin-bottom: 16px; }
+  .hero .hero-note { color: var(--muted); font-size: .78rem; margin-top: 14px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .hero p { color: #aab0c8; font-size: 1.05rem; max-width: 500px; margin: 0 auto 36px; }
+
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--green), var(--green2));
+    color: #fff; font-size: 1rem; font-weight: 700;
+    padding: 16px 36px; border-radius: var(--radius);
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 24px #27a24540;
+  }
+  .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 32px #27a24560; }
+
+  /* ── FEATURES ── */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    max-width: 900px; margin: 0 auto;
+    padding: 0 24px 70px;
+  }
+  .feat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex; align-items: center; gap: 14px;
+    transition: border-color .2s;
+  }
+  .feat-card:hover { border-color: var(--gold); }
+  .feat-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .feat-card strong { display: block; color: #fff; font-size: .95rem; margin-bottom: 2px; }
+  .feat-card span { color: var(--muted); font-size: .8rem; }
+
+  /* ── PRICING ── */
+  .pricing-section { padding: 0 24px 70px; }
+  .section-title {
+    text-align: center; font-size: 1.5rem; font-weight: 700;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .section-sub { text-align: center; color: var(--muted); font-size: .9rem; margin-bottom: 36px; }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; max-width: 600px; margin: 0 auto;
+  }
+  .plan {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    transition: border-color .2s, transform .2s;
+  }
+  .plan:hover { border-color: #444; transform: translateY(-2px); }
+  .plan.popular {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, #1a1500, var(--surface));
+  }
+  .badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #000; font-size: .7rem; font-weight: 800;
+    padding: 3px 14px; border-radius: 99px; white-space: nowrap;
+  }
+  .plan .price { font-size: 2.4rem; font-weight: 900; color: #fff; }
+  .plan .period { color: var(--muted); font-size: .85rem; margin-bottom: 20px; }
+  .plan-feats { list-style: none; margin-bottom: 24px; }
+  .plan-feats li {
+    color: #b0b8cc; font-size: .85rem; padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-feats li:last-child { border: none; }
+  .plan-feats li::before { content: "✓  "; color: var(--green2); font-weight: 700; }
+  .btn-buy {
+    display: block; width: 100%;
+    background: var(--border); color: #fff;
+    border: 1px solid #2e3555; border-radius: 10px;
+    padding: 12px; font-size: .9rem; font-weight: 700;
+    cursor: pointer; transition: background .2s;
+  }
+  .plan.popular .btn-buy {
+    background: var(--gold); color: #000; border-color: var(--gold2);
+  }
+  .btn-buy:hover { opacity: .85; }
+
+  /* ── HOW TO BUY ── */
+  .how-section { padding: 0 24px 70px; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; max-width: 900px; margin: 0 auto;
+  }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex; gap: 14px;
+  }
+  .step-num {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: var(--gold); color: #000;
+    font-weight: 900; font-size: .9rem;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  }
+  .step p { color: #b0b8cc; font-size: .85rem; }
+
+  /* ── SCREENSHOTS ── */
+  .screenshots-section { padding: 0 24px 70px; }
+  .screenshots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px; max-width: 900px; margin: 0 auto;
+  }
+  .screenshots figure {
+    margin: 0; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--border); background: var(--surface);
+    transition: transform .2s, border-color .2s;
+  }
+  .screenshots figure:hover { transform: scale(1.03); border-color: #444; }
+  .screenshots img { width: 100%; display: block; aspect-ratio: 9/16; object-fit: cover; }
+  .screenshots figcaption { text-align: center; font-size: .7rem; color: var(--muted); padding: 6px 4px; }
+
+  /* ── CHANGELOG ── */
+  .changelog-section { padding: 0 24px 70px; }
+  .cl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px; max-width: 900px; margin: 0 auto;
+  }
+  .cl-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .cl-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+  .cl-item strong { display: block; color: #fff; font-size: .9rem; margin-bottom: 4px; }
+  .cl-item p { color: var(--muted); font-size: .8rem; line-height: 1.5; }
+  .cl-version { text-align: center; color: var(--muted); font-size: .8rem; margin-bottom: 24px; letter-spacing: .08em; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 28px 24px;
+    color: var(--muted); font-size: .8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── MODAL ── */
+  .modal-bg {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+    z-index: 999; align-items: center; justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px 28px;
+    width: min(90vw, 380px);
+  }
+  .modal h3 { color: var(--gold); font-size: 1.2rem; margin-bottom: 8px; }
+  .price-label { color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 18px; }
+  .modal label { display: block; color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+  .modal input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; color: #fff; padding: 12px 14px; font-size: 1rem;
+    margin-bottom: 20px; outline: none;
+  }
+  .modal input:focus { border-color: var(--gold); }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-btns button {
+    flex: 1; padding: 12px; border-radius: 10px;
+    font-size: .9rem; font-weight: 700; cursor: pointer; border: none;
+    transition: opacity .2s;
+  }
+  .modal-btns button:hover { opacity: .85; }
+  .modal-btns .cancel { background: var(--border); color: var(--muted); }
+  .modal-btns .pay { background: var(--gold); color: #000; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.9rem; }
+    .plans { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">⚡ BattleOnline Helper</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-bar">
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+    <button class="lang-btn" id="btn-pl" onclick="setLang('pl')">🇵🇱 PL</button>
+    <button class="lang-btn" id="btn-br" onclick="setLang('br')">🇧🇷 BR</button>
+  </div>
+    <a href="https://discord.gg/K4vHfMwxu" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#5865F2;color:#fff;font-size:.82rem;font-weight:700;padding:7px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:opacity .2s" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"><svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>Discord</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <h1>BattleOnline <span>Helper</span></h1>
+  <div class="version">v2.9</div>
+  <p data-i18n="hero_desc"></p>
+  <a href="https://github.com/fawizja/battleonline-helper/releases/latest/download/BattleOnline.Helper.apk"
+     class="btn-download" download data-i18n="btn_download"></a>
+  <p class="hero-note" data-i18n="hero_note"></p>
+</section>
+
+<!-- ── FEATURES ── -->
+<div class="features">
+  <div class="feat-card">
+    <div class="feat-icon">💀</div>
+    <div><strong data-i18n="f_pvp_t"></strong><span data-i18n="f_pvp_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🏹</div>
+    <div><strong data-i18n="f_war_t"></strong><span data-i18n="f_war_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">👹</div>
+    <div><strong data-i18n="f_demon_t"></strong><span data-i18n="f_demon_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🎒</div>
+    <div><strong data-i18n="f_refill_t"></strong><span data-i18n="f_refill_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">⏰</div>
+    <div><strong data-i18n="f_takeover_t"></strong><span data-i18n="f_takeover_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">❤️</div>
+    <div><strong data-i18n="f_heal_t"></strong><span data-i18n="f_heal_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">⚡</div>
+    <div><strong data-i18n="f_exp_t"></strong><span data-i18n="f_exp_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🎣</div>
+    <div><strong data-i18n="f_fish_t"></strong><span data-i18n="f_fish_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🌀</div>
+    <div><strong data-i18n="f_rift_t"></strong><span data-i18n="f_rift_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🔮</div>
+    <div><strong data-i18n="f_sigil_t"></strong><span data-i18n="f_sigil_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">💬</div>
+    <div><strong data-i18n="f_chat_t"></strong><span data-i18n="f_chat_d"></span></div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🔄</div>
+    <div><strong data-i18n="f_update_t"></strong><span data-i18n="f_update_d"></span></div>
+  </div>
+</div>
+
+<!-- ── PRICING (ukryte) ── --><!--
+<section class="pricing-section">
+  <h2 class="section-title" data-i18n="pricing_title">License</h2>
+  <p class="section-sub" data-i18n="pricing_sub"></p>
+  <div class="plans">
+    <div class="plan">
+      <div class="price">$2.50</div>
+      <div class="period" data-i18n="days10"></div>
+      <ul class="plan-feats">
+        <li data-i18n="feat1"></li>
+        <li data-i18n="feat2"></li>
+        <li data-i18n="feat3"></li>
+        <li data-i18n="feat4"></li>
+      </ul>
+      <button class="btn-buy" onclick="openModal('10days','days10_label','$2.50')" data-i18n="buy10"></button>
+    </div>
+    <div class="plan popular">
+      <div class="badge" data-i18n="popular"></div>
+      <div class="price">$6.50</div>
+      <div class="period" data-i18n="days30"></div>
+      <ul class="plan-feats">
+        <li data-i18n="feat1"></li>
+        <li data-i18n="feat2"></li>
+        <li data-i18n="feat3"></li>
+        <li data-i18n="feat4"></li>
+      </ul>
+      <button class="btn-buy" onclick="openModal('30days','days30_label','$6.50')" data-i18n="buy30"></button>
+    </div>
+  </div>
+</section>
+
+-->
+<!-- ── HOW TO BUY (ukryte) ── --><!--
+<section class="how-section">
+  <h2 class="section-title" data-i18n="how_title"></h2>
+  <p class="section-sub" style="margin-bottom:28px"></p>
+  <div class="steps" style="max-width:860px;margin:0 auto">
+    <div class="step"><div class="step-num">1</div><p data-i18n="step1"></p></div>
+    <div class="step"><div class="step-num">2</div><p data-i18n="step2"></p></div>
+    <div class="step"><div class="step-num">3</div><p data-i18n="step3"></p></div>
+    <div class="step"><div class="step-num">4</div><p data-i18n="step4"></p></div>
+  </div>
+</section>
+
+-->
+<!-- ── SCREENSHOTS ── -->
+<section class="screenshots-section">
+  <h2 class="section-title" data-i18n="screenshots_title"></h2>
+  <p class="section-sub" style="margin-bottom:28px"></p>
+  <div class="screenshots">
+    <figure><img src="screens/main.jpg" alt="Main menu" loading="lazy"><figcaption data-i18n="sc_main"></figcaption></figure>
+    <figure><img src="screens/permissions.jpg" alt="Permissions" loading="lazy"><figcaption data-i18n="sc_permissions"></figcaption></figure>
+    <figure><img src="screens/fishing.jpg" alt="Fishing" loading="lazy"><figcaption data-i18n="sc_fishing"></figcaption></figure>
+    <figure><img src="screens/rift.jpg" alt="Rift Scrolling" loading="lazy"><figcaption data-i18n="sc_rift"></figcaption></figure>
+    <figure><img src="screens/exp_normal.jpg" alt="EXP Normal" loading="lazy"><figcaption data-i18n="sc_exp_normal"></figcaption></figure>
+    <figure><img src="screens/exp_fast.jpg" alt="Fast Hunt" loading="lazy"><figcaption data-i18n="sc_exp_fast"></figcaption></figure>
+  </div>
+</section>
+
+<!-- ── CHANGELOG ── -->
+<section class="changelog-section">
+  <h2 class="section-title" data-i18n="changelog_title"></h2>
+  <div class="cl-version">v2.9</div>
+  <div class="cl-grid">
+    <div class="cl-item"><div class="cl-icon">🎣</div><div><strong data-i18n="cl1_t"></strong><p data-i18n="cl1_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🌀</div><div><strong data-i18n="cl2_t"></strong><p data-i18n="cl2_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">📶</div><div><strong data-i18n="cl3_t"></strong><p data-i18n="cl3_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">💀</div><div><strong data-i18n="cl4_t"></strong><p data-i18n="cl4_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">👹</div><div><strong data-i18n="cl5_t"></strong><p data-i18n="cl5_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">❤️</div><div><strong data-i18n="cl6_t"></strong><p data-i18n="cl6_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🔄</div><div><strong data-i18n="cl7_t"></strong><p data-i18n="cl7_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🌍</div><div><strong data-i18n="cl8_t"></strong><p data-i18n="cl8_d"></p></div></div>
+    <div class="cl-item"><div class="cl-icon">🏺</div><div><strong data-i18n="cl9_t"></strong><p data-i18n="cl9_d"></p></div></div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>© 2026 BattleOnline Helper &nbsp;|&nbsp; battleonline.helper@gmail.com</footer>
+
+<!-- ── MODAL ── -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3 data-i18n="modal_title"></h3>
+    <div class="price-label" id="modalPrice"></div>
+    <label data-i18n="modal_label"></label>
+    <input type="text" id="deviceInput" maxlength="20">
+    <div class="modal-btns">
+      <button class="cancel" onclick="closeModal()" data-i18n="modal_cancel"></button>
+      <button class="pay" onclick="goToCheckout()" data-i18n="modal_pay"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+const T = {
+  en: {
+    hero_desc: "Automatic combat, hunting and fishing bot for BattleOnline: PvP, WAR, monster hunting with auto-refill, fishing, Sigil and more. Works on Android devices.",
+    hero_note: "Updating from an older version and Android says “App not installed”? Uninstall the old version once, then install the new one.",
+    btn_download: "⬇  Download latest version",
+    f_pvp_t: "PvP",
+    f_pvp_d: "Targets enemy players automatically",
+    f_war_t: "WAR",
+    f_war_d: "Targets war enemies (red bar)",
+    f_demon_t: "Demon (PvM)",
+    f_demon_d: "Auto-selects and attacks monsters",
+    f_refill_t: "Refill",
+    f_refill_d: "Sells loot in town and returns to hunt",
+    f_takeover_t: "Takeover (Enter War)",
+    f_takeover_d: "ENTER WAR at a set time, to the millisecond",
+    f_heal_t: "HP/MP Healing",
+    f_heal_d: "Heals and restores mana automatically",
+    f_exp_t: "EXP Normal & Fast",
+    f_exp_d: "Auto attack & hunt",
+    f_fish_t: "Fishing",
+    f_fish_d: "Auto-fishing with selling",
+    f_rift_t: "Rift Scrolling",
+    f_rift_d: "Chaos Rift automation",
+    f_sigil_t: "Ascension Sigil",
+    f_sigil_d: "Auto sigil use",
+    f_chat_t: "Auto Chat",
+    f_chat_d: "Regional / Global messages",
+    f_update_t: "Auto-Update",
+    f_update_d: "Always up to date",
+    changelog_title: "What's new in v2.9",
+    cl1_t: "Fishing",
+    cl1_d: "A bite is detected when the rod circle in the bottom-right corner disappears; the click circle is searched on the whole screen and a fish is counted when the rod circle returns. Full bag → the bot goes to sell; an accidentally opened map → it returns to the spot. Faster entering and walking in town.",
+    cl2_t: "Rift",
+    cl2_d: "Speed level 10 now really works (20 ms), and slider settings are saved.",
+    cl3_t: "Lag detection",
+    cl3_d: "The bot measures how fast the game reacts to clicks. With normal ping it keeps full speed; with lag it slows down Sigil and Fishing so no step is missed.",
+    cl4_t: "PvP & WAR",
+    cl4_d: "Players are selected again (red clothing no longer fools the bot) and the crash when PvP/WAR took over from PvM is fixed. New speeds: search 150 ms, frame 100 ms, retap 150 ms, tracking 100 ms.",
+    cl5_t: "Demon (PvM)",
+    cl5_d: "No more app shutdown when a player appears on screen.",
+    cl6_t: "Stability",
+    cl6_d: "Healing, Fishing, EXP and Rift no longer close the app on a rare error — they retry and keep working.",
+    cl7_t: "Auto-Update",
+    cl7_d: "The app checks for a new version on start and installs it with one tap.",
+    cl8_t: "Translations",
+    cl8_d: "HP/MP bar calibration now fully in English and Portuguese.",
+    cl9_t: "Relics (new)",
+    cl9_d: "New Relics tab: tick the relics you want and the bot picks them in Reliquary → Pick (Confirm Selection), otherwise it taps Reroll. Catalog of 36 relics with icons and effects.",
+    pricing_title: "License",
+    pricing_sub: "One-time payment. Activates automatically in the app.",
+    days10: "10 days", days30: "30 days",
+    days10_label: "10 days", days30_label: "30 days",
+    feat1: "All features", feat2: "Fishing (Caelbourne)",
+    feat3: "EXP Normal & Fast Hunt", feat4: "Technical support",
+    popular: "⭐ BEST VALUE", buy10: "Buy — $2.50", buy30: "Buy — $6.50",
+    how_title: "How to buy?",
+    step1: "Open BattleOnline Helper and wait for the trial to expire — your <strong>device code</strong> will appear.",
+    step2: "Click <strong>Buy</strong> above and enter your device code.",
+    step3: "Pay via <strong>Stripe</strong> (card or Google Pay).",
+    step4: "License activates <strong>automatically</strong> — just relaunch the app.",
+    screenshots_title: "Screenshots",
+    sc_main: "Main menu", sc_permissions: "Permissions",
+    sc_fishing: "Fishing", sc_rift: "Rift Scrolling",
+    sc_exp_normal: "EXP Normal", sc_exp_fast: "Fast Hunt",
+    feat_calib: "Calibration", feat_calib_sub: "Per-device point setup",
+    modal_title: "🔑 License Activation", modal_label: "Device code from the app:",
+    modal_cancel: "Cancel", modal_pay: "Go to payment →", modal_alert: "Please enter a valid device code.",
+  },
+  pl: {
+    hero_desc: "Automatyczny bot do walki, polowania i łowienia w BattleOnline: PvP, WAR, polowanie na potwory z automatycznym Refillem, łowienie, Sigil i więcej. Działa na urządzeniach Android.",
+    hero_note: "Aktualizujesz ze starszej wersji, a Android pokazuje „Aplikacja nie została zainstalowana”? Odinstaluj raz starą wersję i zainstaluj nową.",
+    btn_download: "⬇  Pobierz najnowszą wersję",
+    f_pvp_t: "PvP",
+    f_pvp_d: "Automatycznie zaznacza wrogich graczy",
+    f_war_t: "WAR",
+    f_war_d: "Zaznacza wrogów wojny (czerwony pasek)",
+    f_demon_t: "Diabełek (PvM)",
+    f_demon_d: "Sam zaznacza i bije potwory",
+    f_refill_t: "Refill",
+    f_refill_d: "Sprzedaje łup w mieście i wraca na hunt",
+    f_takeover_t: "Przejmowanie (Enter War)",
+    f_takeover_d: "ENTER WAR o ustawionej godzinie, co do milisekundy",
+    f_heal_t: "Leczenie HP/MP",
+    f_heal_d: "Automatycznie leczy i uzupełnia manę",
+    f_exp_t: "EXP Normal & Fast",
+    f_exp_d: "Automatyczny atak i polowanie",
+    f_fish_t: "Łowienie",
+    f_fish_d: "Automatyczne łowienie ze sprzedażą",
+    f_rift_t: "Rift Scrolling",
+    f_rift_d: "Automatyzacja Chaos Rift",
+    f_sigil_t: "Ascension Sigil",
+    f_sigil_d: "Automatyczne użycie Sigila",
+    f_chat_t: "Auto Chat",
+    f_chat_d: "Wiadomości na Regional / Global",
+    f_update_t: "Auto-update",
+    f_update_d: "Zawsze aktualna wersja",
+    changelog_title: "Co nowego w v2.9",
+    cl1_t: "Łowienie",
+    cl1_d: "Branie = zniknięcie koła z wędką w prawym dolnym rogu; kółko do klikania szukane na całym ekranie, ryba liczona po powrocie koła. Pełny plecak → bot idzie sprzedać; przypadkowo otwarta mapa → wraca na łowisko. Szybsze wchodzenie na łowisko i chodzenie w mieście.",
+    cl2_t: "Rift",
+    cl2_d: "Poziom prędkości 10 naprawdę działa (20 ms), a ustawienia suwaków są zapisywane.",
+    cl3_t: "Wykrywanie laga",
+    cl3_d: "Bot mierzy, jak szybko gra reaguje na kliknięcia. Przy normalnym pingu pełne tempo; przy lagu zwalnia Sigil i Łowienie, żeby nie gubić kroków.",
+    cl4_t: "PvP i WAR",
+    cl4_d: "Gracze znów są zaznaczani (czerwone ubranie już nie myli bota), naprawiony crash przy przejęciu z PvM. Nowe tempo: szukanie 150 ms, ramka 100 ms, ponowny klik 150 ms, śledzenie 100 ms.",
+    cl5_t: "Diabełek (PvM)",
+    cl5_d: "Aplikacja nie wyłącza się już, gdy na ekranie pojawi się gracz.",
+    cl6_t: "Stabilność",
+    cl6_d: "Leczenie, Łowienie, EXP i Rift nie zamykają aplikacji przy rzadkim błędzie — ponawiają i działają dalej.",
+    cl7_t: "Auto-aktualizacje",
+    cl7_d: "Aplikacja przy starcie sprawdza nową wersję i instaluje ją jednym kliknięciem.",
+    cl8_t: "Tłumaczenia",
+    cl8_d: "Kalibracja pasków HP/MP w pełni po angielsku i portugalsku.",
+    cl9_t: "Relikty (nowość)",
+    cl9_d: "Nowa zakładka Relikty: zaznaczasz wybrane relikty, a bot wybiera je w Reliquary → Pick (Confirm Selection), a gdy ich nie ma — klika Reroll. Katalog 36 reliktów z ikonkami i efektami.",
+    pricing_title: "Licencja",
+    pricing_sub: "Jednorazowa płatność. Aktywacja automatycznie w aplikacji.",
+    days10: "10 dni", days30: "30 dni",
+    days10_label: "10 dni", days30_label: "30 dni",
+    feat1: "Wszystkie funkcje", feat2: "Łowienie (Caelbourne)",
+    feat3: "EXP Normal & Fast Hunt", feat4: "Wsparcie techniczne",
+    popular: "⭐ NAJLEPSZA OFERTA", buy10: "Kup — $2.50", buy30: "Kup — $6.50",
+    how_title: "Jak kupić?",
+    step1: "Otwórz BattleOnline Helper i poczekaj aż trial wygaśnie — pojawi się <strong>kod urządzenia</strong>.",
+    step2: "Kliknij <strong>Kup</strong> powyżej i wpisz kod urządzenia.",
+    step3: "Zapłać przez <strong>Stripe</strong> (karta lub Google Pay).",
+    step4: "Licencja aktywuje się <strong>automatycznie</strong> — uruchom aplikację ponownie.",
+    screenshots_title: "Zrzuty ekranu",
+    sc_main: "Menu główne", sc_permissions: "Uprawnienia",
+    sc_fishing: "Łowienie", sc_rift: "Rift Scrolling",
+    sc_exp_normal: "EXP Normal", sc_exp_fast: "Fast Hunt",
+    feat_calib: "Kalibracja", feat_calib_sub: "Ustawienie punktów per urządzenie",
+    modal_title: "🔑 Aktywacja licencji", modal_label: "Kod urządzenia z aplikacji:",
+    modal_cancel: "Anuluj", modal_pay: "Przejdź do płatności →", modal_alert: "Wpisz prawidłowy kod urządzenia.",
+  },
+  br: {
+    hero_desc: "Bot automático de combate, caça e pesca para BattleOnline: PvP, WAR, caça de monstros com Refill automático, pesca, Sigil e mais. Funciona em dispositivos Android.",
+    hero_note: "Atualizando de uma versão antiga e o Android mostra “App não instalado”? Desinstale a versão antiga uma vez e instale a nova.",
+    btn_download: "⬇  Baixar a versão mais recente",
+    f_pvp_t: "PvP",
+    f_pvp_d: "Seleciona jogadores inimigos automaticamente",
+    f_war_t: "WAR",
+    f_war_d: "Seleciona inimigos de guerra (barra vermelha)",
+    f_demon_t: "Demônio (PvM)",
+    f_demon_d: "Seleciona e ataca monstros sozinho",
+    f_refill_t: "Refill",
+    f_refill_d: "Vende o loot na cidade e volta à caça",
+    f_takeover_t: "Tomada (Enter War)",
+    f_takeover_d: "ENTER WAR no horário definido, ao milissegundo",
+    f_heal_t: "Cura HP/MP",
+    f_heal_d: "Cura e recupera mana automaticamente",
+    f_exp_t: "EXP Normal & Fast",
+    f_exp_d: "Ataque e caça automáticos",
+    f_fish_t: "Pesca",
+    f_fish_d: "Pesca automática com venda",
+    f_rift_t: "Rift Scrolling",
+    f_rift_d: "Automação do Chaos Rift",
+    f_sigil_t: "Ascension Sigil",
+    f_sigil_d: "Uso automático do Sigil",
+    f_chat_t: "Auto Chat",
+    f_chat_d: "Mensagens Regional / Global",
+    f_update_t: "Atualização automática",
+    f_update_d: "Sempre atualizado",
+    changelog_title: "O que há de novo na v2.9",
+    cl1_t: "Pesca",
+    cl1_d: "A fisgada é detectada quando o círculo da vara no canto inferior direito some; o círculo de toque é buscado na tela inteira e o peixe é contado quando o círculo da vara volta. Mochila cheia → o bot vai vender; mapa aberto sem querer → volta ao ponto. Entrada e caminhada na cidade mais rápidas.",
+    cl2_t: "Rift",
+    cl2_d: "O nível de velocidade 10 agora funciona de verdade (20 ms) e os controles deslizantes ficam salvos.",
+    cl3_t: "Detecção de lag",
+    cl3_d: "O bot mede a rapidez com que o jogo reage aos toques. Com ping normal mantém a velocidade total; com lag desacelera o Sigil e a Pesca para não perder etapas.",
+    cl4_t: "PvP e WAR",
+    cl4_d: "Jogadores voltam a ser selecionados (roupa vermelha não engana mais o bot) e o travamento ao assumir do PvM foi corrigido. Novas velocidades: busca 150 ms, moldura 100 ms, novo toque 150 ms, rastreio 100 ms.",
+    cl5_t: "Demônio (PvM)",
+    cl5_d: "O app não fecha mais quando um jogador aparece na tela.",
+    cl6_t: "Estabilidade",
+    cl6_d: "Cura, Pesca, EXP e Rift não fecham mais o app em erro raro — tentam de novo e continuam.",
+    cl7_t: "Atualização automática",
+    cl7_d: "O app verifica nova versão ao iniciar e instala com um toque.",
+    cl8_t: "Traduções",
+    cl8_d: "Calibração das barras HP/MP totalmente em inglês e português.",
+    cl9_t: "Relíquias (novo)",
+    cl9_d: "Nova aba Relíquias: marque as relíquias desejadas e o bot as escolhe em Reliquary → Pick (Confirm Selection); se não houver, toca em Reroll. Catálogo de 36 relíquias com ícones e efeitos.",
+    pricing_title: "Licença",
+    pricing_sub: "Pagamento único. Ativa automaticamente no app.",
+    days10: "10 dias", days30: "30 dias",
+    days10_label: "10 dias", days30_label: "30 dias",
+    feat1: "Todas as funções", feat2: "Pesca (Caelbourne)",
+    feat3: "EXP Normal & Fast Hunt", feat4: "Suporte técnico",
+    popular: "⭐ MELHOR VALOR", buy10: "Comprar — $2.50", buy30: "Comprar — $6.50",
+    how_title: "Como comprar?",
+    step1: "Abra o BattleOnline Helper e espere o trial expirar — seu <strong>código do dispositivo</strong> aparecerá.",
+    step2: "Clique em <strong>Comprar</strong> acima e insira seu código.",
+    step3: "Pague via <strong>Stripe</strong> (cartão ou Google Pay).",
+    step4: "A licença ativa <strong>automaticamente</strong> — reinicie o app.",
+    screenshots_title: "Capturas de tela",
+    sc_main: "Menu principal", sc_permissions: "Permissões",
+    sc_fishing: "Pesca", sc_rift: "Rift Scrolling",
+    sc_exp_normal: "EXP Normal", sc_exp_fast: "Fast Hunt",
+    feat_calib: "Calibração", feat_calib_sub: "Configuração de pontos por dispositivo",
+    modal_title: "🔑 Ativação de licença", modal_label: "Código do dispositivo do app:",
+    modal_cancel: "Cancelar", modal_pay: "Ir para pagamento →", modal_alert: "Insira um código de dispositivo válido.",
+  }
+};
+
+let lang = localStorage.getItem('lang') || 'en';
+let currentPlan = '', currentLabelKey = '';
+
+function setLang(l) { lang = l; localStorage.setItem('lang', l); applyLang(); }
+
+function applyLang() {
+  const t = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.getElementById('deviceInput').placeholder =
+    lang === 'pl' ? 'np. A1B2C3D4' : lang === 'br' ? 'ex. A1B2C3D4' : 'e.g. A1B2C3D4';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang)?.classList.add('active');
+  document.documentElement.lang = lang === 'br' ? 'pt-BR' : lang;
+}
+
+function openModal(plan, labelKey, price) {
+  currentPlan = plan; currentLabelKey = labelKey;
+  document.getElementById('modalPrice').textContent = price + ' / ' + T[lang][labelKey];
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('deviceInput').value = '';
+  document.getElementById('deviceInput').focus();
+}
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
+function goToCheckout() {
+  const id = document.getElementById('deviceInput').value.trim().toUpperCase();
+  if (id.length < 8) { alert(T[lang].modal_alert); return; }
+  const links = {
+    '10days': 'https://buy.stripe.com/8x28wH6416e5b4350VfUQ01?client_reference_id=' + id,
+    '30days': 'https://buy.stripe.com/3cI3cn785bypc878d7fUQ00?client_reference_id=' + id
+  };
+  window.location.href = links[currentPlan];
+}
+document.getElementById('modalBg').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+applyLang();
+</script>
+<script data-goatcounter="https://battleonline.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
